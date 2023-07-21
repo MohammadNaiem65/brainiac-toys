@@ -1,7 +1,3 @@
-/* .nav-link {
-	@apply px-2 relative after:content-[""] after:w-full after:h-1 after:absolute after:-bottom-1 after:left-0 after:bg-primary after:rounded after:transform after:duration-500 after:scale-x-0 after:origin-left hover:after:scale-100;
-} */
-
 .nav-link {
 	padding-inline: 0.75rem;
 	position: relative;

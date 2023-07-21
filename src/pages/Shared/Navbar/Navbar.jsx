@@ -1,10 +1,9 @@
-import { Link, NavLink } from 'react-router-dom';
 import logo from './../../../assets/logo.svg';
 import './Navbar.css';
 import ActiveLink from './ActiveLink';
 
 const Navbar = () => {
-	const user = true;
+	const user = false;
 	return (
 		<div className='bg-[#FFF7F3] font-bubblegum text-xl mx-auto px-[8.885%] py-5 flex items-center justify-between'>
 			<div className='flex items-center'>
@@ -22,14 +21,10 @@ const Navbar = () => {
 				{user ? (
 					<>
 						<p>Mohammad</p>
-						<button className='bg-primary px-4 py-2 rounded transform duration-300 hover:-translate-y-2'>
-							Log Out
-						</button>
+						<button className='btn btn-primary'>Log Out</button>
 					</>
 				) : (
-					<button className='bg-secondary px-4 py-2 rounded transform duration-300 hover:-translate-y-2'>
-						Login
-					</button>
+					<button className='btn btn-secondary'>Login</button>
 				)}
 			</div>
 		</div>

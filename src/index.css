@@ -3,5 +3,27 @@
 @tailwind utilities;
 
 @layer utilities {
-	
+	.container {
+		@apply w-5/6 mx-auto my-20;
+	}
+
+	.btn {
+		@apply px-5 py-2 rounded transform duration-300 hover:-translate-y-2;
+	}
+
+	.btn-primary {
+		@apply bg-primary;
+	}
+
+	.btn-secondary {
+		@apply bg-secondary;
+	}
+
+	.small-shadow {
+		@apply absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-neutral-900;
+	}
+
+	.large-shadow {
+		@apply px-[20%] absolute inset-0 transition-all duration-500 bg-gradient-to-b from-transparent group-hover:via-black/70 to-neutral-950 group-hover:to-neutral-950 group-hover:translate-y-0;
+	}
 }
