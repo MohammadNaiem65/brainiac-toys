@@ -12,7 +12,7 @@
 	}
 
 	.btn {
-		@apply px-5 py-2 font-bubblegum text-2xl rounded transform duration-300 hover:-translate-y-2;
+		@apply px-5 py-2 font-bubblegum text-xl rounded transform duration-300 hover:-translate-y-2;
 	}
 
 	.btn-primary {
