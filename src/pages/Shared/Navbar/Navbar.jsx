@@ -15,7 +15,7 @@ const Navbar = () => {
 				<ActiveLink to='/all-toys'>All Toys</ActiveLink>
 				<ActiveLink to='/my-toys'>My Toys</ActiveLink>
 				<ActiveLink to='/add-toy'>Add a Toy</ActiveLink>
-				<ActiveLink to='/blog'>Blog</ActiveLink>
+				<ActiveLink to='/blogs'>Blogs</ActiveLink>
 			</div>
 			<div className='flex items-center gap-x-5'>
 				{user ? (

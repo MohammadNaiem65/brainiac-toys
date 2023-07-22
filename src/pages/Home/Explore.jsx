@@ -19,7 +19,9 @@ const Explore = () => {
 					social skills. These toys can help children feel good about
 					themselves and their abilities.
 				</p>
-				<Link className='btn btn-primary mt-6'>Explore</Link>
+				<Link to='/all-toys' className='btn btn-primary mt-6'>
+					Explore
+				</Link>
 			</div>
 		</div>
 	);
