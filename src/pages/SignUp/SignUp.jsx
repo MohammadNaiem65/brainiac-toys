@@ -1,18 +1,33 @@
 import { FcGoogle } from 'react-icons/fc';
 import { FaFacebook, FaPinterest, FaApple } from 'react-icons/fa6';
+import { useContext } from 'react';
+import { AuthContext } from '../../providers/AuthProvider/AuthProvider';
 
 const SignUp = () => {
-	const handleLogin = (e) => {
+	const { createUserWithEmail, successNotification, errorNotification } =
+		useContext(AuthContext);
+	const handleSignUp = (e) => {
 		e.preventDefault();
 		const form = e.target;
 		const email = form.email.value;
 		const password = form.password.value;
-		console.log(form, email, password);
+		const confirmPassword = form.confirmPassword.value;
+		if (password === confirmPassword) {
+			createUserWithEmail(email, password)
+				.then((userData) => {
+					if (userData.user.email) {
+						successNotification('User Created Successfully');
+					}
+				})
+				.catch((err) => errorNotification(err.code));
+		} else {
+			errorNotification('Password did not match!');
+		}
 	};
 	return (
 		<div className='w-1/3 mx-auto my-20 px-10 py-5 bg-primary/60 font-bubblegum rounded'>
 			<h2 className='text-4xl text-center'>Sign Up</h2>
-			<form className='w-fit mx-auto px-5' onSubmit={handleLogin}>
+			<form className='w-fit mx-auto px-5' onSubmit={handleSignUp}>
 				{/* Email */}
 				<>
 					<label
@@ -46,14 +61,14 @@ const SignUp = () => {
 				{/* Confirm Password */}
 				<>
 					<label
-						htmlFor='password'
+						htmlFor='confirmPassword'
 						className='text-xl block mb-1 mt-5 tracking-wide'>
 						Confirm Password
 					</label>
 					<input
 						type='password'
-						id='password'
-						name='password'
+						id='confirmPassword'
+						name='confirmPassword'
 						placeholder='Confirm your password.'
 						className='w-96 px-3 py-1 outline-primary rounded'
 					/>

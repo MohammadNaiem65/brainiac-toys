@@ -48,7 +48,9 @@ const Login = () => {
 				</>
 				<p className='mt-2'>
 					New to Brainiac Toys?{' '}
-					<Link to='/sign-up' className='hover:text-white'>
+					<Link
+						to='/sign-up'
+						className='text-[#c86a0654] hover:text-slate-950'>
 						Sign Up
 					</Link>{' '}
 					now.
