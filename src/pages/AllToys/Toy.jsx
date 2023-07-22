@@ -6,7 +6,12 @@ const Toy = ({ toy }) => {
 	return (
 		<div className='p-3 even:bg-primary/20 font-poppins rounded flex justify-between items-center'>
 			<div className='w-2/6 flex gap-x-3'>
-				<img className='w-28 aspect-video rounded' src={img} alt='' />
+				<img
+					className='w-28 aspect-video rounded'
+					src={img}
+					alt=''
+					loading='lazy'
+				/>
 				<div>
 					<h4 className='text-[1.4rem] font-bubblegum'>{name}</h4>
 					<p>
@@ -25,7 +30,9 @@ const Toy = ({ toy }) => {
 				</p>
 			</div>
 			<p className='text-lg font-semibold'>${price}</p>
-			<Link className='btn btn-primary'>Details</Link>
+			<Link to={`/toy/${_id}`} className='btn btn-primary'>
+				Details
+			</Link>
 		</div>
 	);
 };

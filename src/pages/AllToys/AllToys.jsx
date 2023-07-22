@@ -3,7 +3,6 @@ import Toy from './Toy';
 
 const AllToys = () => {
 	const toys = useLoaderData();
-	console.log(toys);
 	return (
 		<div className='container'>
 			{/* Table head */}
@@ -15,7 +14,7 @@ const AllToys = () => {
 			</div>
 			{/* Toy Body */}
 			<div className=''>
-				{toys.map((toy) => (
+				{toys?.map((toy) => (
 					<Toy key={toy._id} toy={toy} />
 				))}
 			</div>
