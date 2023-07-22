@@ -1,5 +1,6 @@
 import Banner from './Banner';
 import Categories from './Categories';
+import Explore from './Explore';
 import PopularProducts from './PopularProducts';
 
 const Home = () => {
@@ -8,6 +9,7 @@ const Home = () => {
 			<Banner />
 			<Categories />
 			<PopularProducts />
+			<Explore />
 		</>
 	);
 };

@@ -3,7 +3,7 @@ import { BiSolidStar } from 'react-icons/bi';
 const Product = ({ product }) => {
 	const { img, name, price, rating } = product;
 	return (
-		<div className='bg-secondary mt-10 p-2 rounded'>
+		<div className='bg-secondary mt-8 p-2 rounded'>
 			<img
 				className='w-full h-60 rounded border border-white'
 				src={img}
