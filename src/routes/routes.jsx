@@ -5,6 +5,7 @@ import AllToys from '../pages/AllToys/AllToys';
 import Error from '../pages/Error/Error';
 import Blogs from '../pages/Blogs/Blogs';
 import ToyDetails from '../pages/ToyDetails/ToyDetails';
+import Login from '../pages/Login/Login';
 
 export const routes = createBrowserRouter([
 	{
@@ -26,6 +27,10 @@ export const routes = createBrowserRouter([
 				element: <ToyDetails />,
 				loader: ({ params }) =>
 					fetch(`http://localhost:5000/toy/${params.id}`),
+			},
+			{
+				path: '/login',
+				element: <Login />,
 			},
 			{
 				path: '/blogs',

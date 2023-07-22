@@ -6,7 +6,7 @@ const AllToys = () => {
 	return (
 		<div className='container'>
 			{/* Table head */}
-			<div className='bg-secondary p-3 rounded text-xl font-bubblegum flex justify-between'>
+			<div className='bg-primary p-3 rounded text-xl font-bubblegum flex justify-between'>
 				<span className='w-2/6'>Name</span>
 				<span className='w-2/6'>Seller</span>
 				<span>Price</span>

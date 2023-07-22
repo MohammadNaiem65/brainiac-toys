@@ -1,6 +1,7 @@
 import logo from './../../../assets/logo.svg';
 import './Navbar.css';
 import ActiveLink from './ActiveLink';
+import { Link } from 'react-router-dom';
 
 const Navbar = () => {
 	const user = false;
@@ -20,11 +21,15 @@ const Navbar = () => {
 			<div className='flex items-center gap-x-5'>
 				{user ? (
 					<>
-						<p>Mohammad</p>
+						<p className='cursor-pointer' title='Naiem'>
+							Mohammad
+						</p>
 						<button className='btn btn-primary'>Log Out</button>
 					</>
 				) : (
-					<button className='btn btn-secondary'>Login</button>
+					<Link to='/login' className='btn btn-secondary'>
+						Login
+					</Link>
 				)}
 			</div>
 		</div>
