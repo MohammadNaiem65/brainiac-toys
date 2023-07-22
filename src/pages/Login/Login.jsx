@@ -2,6 +2,8 @@ import { FcGoogle } from 'react-icons/fc';
 import { FaFacebook, FaPinterest, FaApple } from 'react-icons/fa6';
 
 const Login = () => {
+    
+console.log(import.meta.env.VITE_apiKey);
 	const handleLogin = (e) => {
 		e.preventDefault();
 		const form = e.target;
