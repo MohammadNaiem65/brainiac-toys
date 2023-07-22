@@ -6,6 +6,7 @@ import Error from '../pages/Error/Error';
 import Blogs from '../pages/Blogs/Blogs';
 import ToyDetails from '../pages/ToyDetails/ToyDetails';
 import Login from '../pages/Login/Login';
+import SignUp from '../pages/SignUp/SignUp';
 
 export const routes = createBrowserRouter([
 	{
@@ -27,6 +28,10 @@ export const routes = createBrowserRouter([
 				element: <ToyDetails />,
 				loader: ({ params }) =>
 					fetch(`http://localhost:5000/toy/${params.id}`),
+			},
+			{
+				path: '/sign-up',
+				element: <SignUp />,
 			},
 			{
 				path: '/login',
