@@ -4,11 +4,22 @@ import { useContext } from 'react';
 import { AuthContext } from '../../providers/AuthProvider/AuthProvider';
 
 const SignUp = () => {
-	const { createUserWithEmail, successNotification, errorNotification } =
-		useContext(AuthContext);
+	const {
+		createUserWithEmail,
+		setUser,
+		updateUserData,
+		setLoading,
+		successNotification,
+		errorNotification,
+	} = useContext(AuthContext);
+
+	// ! Handle sign up process
 	const handleSignUp = (e) => {
 		e.preventDefault();
+		setLoading(true);
 		const form = e.target;
+		const name = form.name.value;
+		const photo = form.photo.value;
 		const email = form.email.value;
 		const password = form.password.value;
 		const confirmPassword = form.confirmPassword.value;
@@ -16,6 +27,10 @@ const SignUp = () => {
 			createUserWithEmail(email, password)
 				.then((userData) => {
 					if (userData.user.email) {
+						setUser(userData.user);
+						updateUserData(name, photo)
+							.then(() => setLoading(false))
+							.catch((err) => errorNotification(err.code));
 						successNotification('User Created Successfully');
 					}
 				})
@@ -23,11 +38,44 @@ const SignUp = () => {
 		} else {
 			errorNotification('Password did not match!');
 		}
+		form.reset();
 	};
 	return (
 		<div className='w-1/3 mx-auto my-20 px-10 py-5 bg-primary/60 font-bubblegum rounded'>
 			<h2 className='text-4xl text-center'>Sign Up</h2>
 			<form className='w-fit mx-auto px-5' onSubmit={handleSignUp}>
+				{/* Name */}
+				<>
+					<label
+						htmlFor='name'
+						className='text-xl block mb-1 mt-5 tracking-wide'>
+						Name
+					</label>
+					<input
+						type='text'
+						id='name'
+						name='name'
+						placeholder='Enter your name.'
+						className='w-96 px-3 py-1 outline-primary rounded'
+						required
+					/>
+				</>
+				{/* Photo URL */}
+				<>
+					<label
+						htmlFor='photo'
+						className='text-xl block mb-1 mt-5 tracking-wide'>
+						Photo URL
+					</label>
+					<input
+						type='text'
+						id='photo'
+						name='photo'
+						placeholder='Enter your photo URL.'
+						className='w-96 px-3 py-1 outline-primary rounded'
+						required
+					/>
+				</>
 				{/* Email */}
 				<>
 					<label
@@ -41,6 +89,7 @@ const SignUp = () => {
 						name='email'
 						placeholder='Enter your email.'
 						className='w-96 px-3 py-1 outline-primary rounded'
+						required
 					/>
 				</>
 				{/* Password */}
@@ -56,6 +105,7 @@ const SignUp = () => {
 						name='password'
 						placeholder='Enter your password.'
 						className='w-96 px-3 py-1 outline-primary rounded'
+						required
 					/>
 				</>
 				{/* Confirm Password */}
@@ -71,6 +121,7 @@ const SignUp = () => {
 						name='confirmPassword'
 						placeholder='Confirm your password.'
 						className='w-96 px-3 py-1 outline-primary rounded'
+						required
 					/>
 				</>
 				<button

@@ -1,8 +1,12 @@
-import { getAuth, createUserWithEmailAndPassword } from 'firebase/auth';
+import {
+	getAuth,
+	createUserWithEmailAndPassword,
+	updateProfile,
+} from 'firebase/auth';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import app from '../../firebase/firebase.config';
-import { createContext } from 'react';
+import { createContext, useState } from 'react';
 
 export const AuthContext = createContext({});
 const auth = getAuth(app);
@@ -11,6 +15,17 @@ const AuthProvider = ({ children }) => {
 	// * Sign Up User
 	const createUserWithEmail = (email, password) => {
 		return createUserWithEmailAndPassword(auth, email, password);
+	};
+
+	// * Handle user
+	const [user, setUser] = useState(null);
+
+	// * Handle user data
+	const updateUserData = (name, photo) => {
+		return updateProfile(auth.currentUser, {
+			displayName: name,
+			photoURL: photo,
+		});
 	};
 
 	// * Notify user
@@ -40,9 +55,16 @@ const AuthProvider = ({ children }) => {
 		});
 	};
 
+	// * Handle loading
+	const [loading, setLoading] = useState(false);
+
 	// * Module scaffolding
 	const authInfo = {
 		createUserWithEmail,
+		user,
+		setUser,
+		updateUserData,
+		setLoading,
 		successNotification,
 		errorNotification,
 	};
