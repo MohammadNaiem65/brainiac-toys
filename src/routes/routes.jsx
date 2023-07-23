@@ -21,13 +21,16 @@ export const routes = createBrowserRouter([
 			{
 				path: '/all-toys',
 				element: <AllToys />,
-				loader: () => fetch('http://localhost:5000/toys'),
+				loader: () =>
+					fetch('https://brainiac-toys-server.vercel.app/toys'),
 			},
 			{
 				path: '/toy/:id',
 				element: <ToyDetails />,
 				loader: ({ params }) =>
-					fetch(`http://localhost:5000/toy/${params.id}`),
+					fetch(
+						`https://brainiac-toys-server.vercel.app/toy/${params.id}`
+					),
 			},
 			{
 				path: '/sign-up',
