@@ -2,6 +2,8 @@ import {
 	getAuth,
 	createUserWithEmailAndPassword,
 	updateProfile,
+	onAuthStateChanged,
+	signOut,
 } from 'firebase/auth';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
@@ -19,6 +21,7 @@ const AuthProvider = ({ children }) => {
 
 	// * Handle user
 	const [user, setUser] = useState(null);
+	const [loggedIn, setLoggedIn] = useState(false);
 
 	// * Handle user data
 	const updateUserData = (name, photo) => {
@@ -27,6 +30,12 @@ const AuthProvider = ({ children }) => {
 			photoURL: photo,
 		});
 	};
+
+	onAuthStateChanged(auth, (user) => {
+		if (user && loggedIn) {
+			setUser(user);
+		}
+	});
 
 	// * Notify user
 	const successNotification = (msg) => {
@@ -55,6 +64,9 @@ const AuthProvider = ({ children }) => {
 		});
 	};
 
+	// * Handle log out
+	const handleLogOut = () => signOut(auth);
+
 	// * Handle loading
 	const [loading, setLoading] = useState(false);
 
@@ -63,7 +75,11 @@ const AuthProvider = ({ children }) => {
 		createUserWithEmail,
 		user,
 		setUser,
+		loggedIn,
+		setLoggedIn,
 		updateUserData,
+		handleLogOut,
+		loading,
 		setLoading,
 		successNotification,
 		errorNotification,

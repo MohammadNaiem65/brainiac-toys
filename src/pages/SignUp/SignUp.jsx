@@ -6,8 +6,10 @@ import { AuthContext } from '../../providers/AuthProvider/AuthProvider';
 const SignUp = () => {
 	const {
 		createUserWithEmail,
+		user,
 		setUser,
 		updateUserData,
+		loggedIn,
 		setLoading,
 		successNotification,
 		errorNotification,
@@ -27,10 +29,12 @@ const SignUp = () => {
 			createUserWithEmail(email, password)
 				.then((userData) => {
 					if (userData.user.email) {
-						setUser(userData.user);
-						updateUserData(name, photo)
-							.then(() => setLoading(false))
-							.catch((err) => errorNotification(err.code));
+						if (loggedIn) {
+							setUser(userData.user);
+						}
+						updateUserData(name, photo).then(() => {
+							setLoading(false);
+						});
 						successNotification('User Created Successfully');
 					}
 				})
@@ -40,6 +44,7 @@ const SignUp = () => {
 		}
 		form.reset();
 	};
+	console.log(user);
 	return (
 		<div className='w-1/3 mx-auto my-20 px-10 py-5 bg-primary/60 font-bubblegum rounded'>
 			<h2 className='text-4xl text-center'>Sign Up</h2>
