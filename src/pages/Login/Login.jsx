@@ -78,9 +78,8 @@ const Login = () => {
 					now.
 				</p>
 				<button
-					onClick={handleLogin}
-					type='submit'
-					className='btn btn-primary block mx-auto mt-7'>
+					className='btn btn-primary block mx-auto mt-7 cursor-pointer'
+					type='submit'>
 					Login
 				</button>
 				<div className='w-full'>

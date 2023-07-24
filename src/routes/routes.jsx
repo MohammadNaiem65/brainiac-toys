@@ -7,6 +7,8 @@ import Blogs from '../pages/Blogs/Blogs';
 import ToyDetails from '../pages/ToyDetails/ToyDetails';
 import Login from '../pages/Login/Login';
 import SignUp from '../pages/SignUp/SignUp';
+import MyToys from '../pages/MyToys/MyToys';
+import AddToys from '../pages/AddToys/AddToys';
 
 export const routes = createBrowserRouter([
 	{
@@ -21,16 +23,21 @@ export const routes = createBrowserRouter([
 			{
 				path: '/all-toys',
 				element: <AllToys />,
-				loader: () =>
-					fetch('https://brainiac-toys-server.vercel.app/toys'),
+				loader: () => fetch('http://localhost:5000/toys'),
 			},
 			{
 				path: '/toy/:id',
 				element: <ToyDetails />,
 				loader: ({ params }) =>
-					fetch(
-						`https://brainiac-toys-server.vercel.app/toy/${params.id}`
-					),
+					fetch(`http://localhost:5000/toy/${params.id}`),
+			},
+			{
+				path: '/my-toys',
+				element: <MyToys />,
+			},
+			{
+				path: '/add-toy',
+				element: <AddToys />,
 			},
 			{
 				path: '/sign-up',
