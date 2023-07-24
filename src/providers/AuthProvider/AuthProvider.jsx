@@ -4,6 +4,7 @@ import {
 	updateProfile,
 	onAuthStateChanged,
 	signOut,
+	signInWithEmailAndPassword,
 } from 'firebase/auth';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
@@ -14,16 +15,20 @@ export const AuthContext = createContext({});
 const auth = getAuth(app);
 
 const AuthProvider = ({ children }) => {
+	// * Handle user
+	const [user, setUser] = useState(null);
+	const [loggedIn, setLoggedIn] = useState(false);
+
 	// * Sign Up User
 	const createUserWithEmail = (email, password) => {
 		return createUserWithEmailAndPassword(auth, email, password);
 	};
 
-	// * Handle user
-	const [user, setUser] = useState(null);
-	const [loggedIn, setLoggedIn] = useState(false);
+	// * Log in user
+	const logInUserWithEmail = (email, password) =>
+		signInWithEmailAndPassword(auth, email, password);
 
-	// * Handle user data
+	// * Update user data
 	const updateUserData = (name, photo) => {
 		return updateProfile(auth.currentUser, {
 			displayName: name,
@@ -75,6 +80,7 @@ const AuthProvider = ({ children }) => {
 		createUserWithEmail,
 		user,
 		setUser,
+		logInUserWithEmail,
 		loggedIn,
 		setLoggedIn,
 		updateUserData,

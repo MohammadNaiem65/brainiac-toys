@@ -1,14 +1,36 @@
 import { FcGoogle } from 'react-icons/fc';
 import { FaFacebook, FaPinterest, FaApple } from 'react-icons/fa6';
-import { Link } from 'react-router-dom';
+import { Link, redirect } from 'react-router-dom';
+import { useContext } from 'react';
+import { AuthContext } from '../../providers/AuthProvider/AuthProvider';
 
 const Login = () => {
+	const {
+		logInUserWithEmail,
+		setUser,
+		setLoggedIn,
+		setLoading,
+		successNotification,
+		errorNotification,
+	} = useContext(AuthContext);
+
+	// Handle user log in
 	const handleLogin = (e) => {
 		e.preventDefault();
+		setLoading(true);
 		const form = e.target;
 		const email = form.email.value;
 		const password = form.password.value;
-		console.log(form, email, password);
+		logInUserWithEmail(email, password)
+			.then((data) => {
+				setLoading(false);
+				successNotification('Logged in successfully!');
+				setLoggedIn(true);
+				setUser(data.user);
+			})
+			.catch((err) => {
+				errorNotification(err.code);
+			});
 	};
 	return (
 		<div className='w-1/3 mx-auto my-20 px-10 py-5 bg-primary/60 font-bubblegum rounded'>
@@ -56,6 +78,7 @@ const Login = () => {
 					now.
 				</p>
 				<button
+					onClick={handleLogin}
 					type='submit'
 					className='btn btn-primary block mx-auto mt-7'>
 					Login

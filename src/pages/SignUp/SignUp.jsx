@@ -2,11 +2,11 @@ import { FcGoogle } from 'react-icons/fc';
 import { FaFacebook, FaPinterest, FaApple } from 'react-icons/fa6';
 import { useContext } from 'react';
 import { AuthContext } from '../../providers/AuthProvider/AuthProvider';
+import { Link } from 'react-router-dom';
 
 const SignUp = () => {
 	const {
 		createUserWithEmail,
-		user,
 		setUser,
 		updateUserData,
 		loggedIn,
@@ -25,13 +25,16 @@ const SignUp = () => {
 		const email = form.email.value;
 		const password = form.password.value;
 		const confirmPassword = form.confirmPassword.value;
+		// Check password
 		if (password === confirmPassword) {
+			// Create user
 			createUserWithEmail(email, password)
 				.then((userData) => {
 					if (userData.user.email) {
 						if (loggedIn) {
 							setUser(userData.user);
 						}
+						// Update user data after sign up
 						updateUserData(name, photo).then(() => {
 							setLoading(false);
 						});
@@ -44,7 +47,6 @@ const SignUp = () => {
 		}
 		form.reset();
 	};
-	console.log(user);
 	return (
 		<div className='w-1/3 mx-auto my-20 px-10 py-5 bg-primary/60 font-bubblegum rounded'>
 			<h2 className='text-4xl text-center'>Sign Up</h2>
@@ -129,6 +131,15 @@ const SignUp = () => {
 						required
 					/>
 				</>
+				<p className='mt-2'>
+					Already have an account?{' '}
+					<Link
+						to='/login'
+						className='text-[#c86a0654] hover:text-slate-950'>
+						Login
+					</Link>{' '}
+					here.
+				</p>
 				<button
 					type='submit'
 					className='btn btn-primary block mx-auto mt-7'>
