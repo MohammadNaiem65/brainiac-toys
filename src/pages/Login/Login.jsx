@@ -1,6 +1,6 @@
 import { FcGoogle } from 'react-icons/fc';
 import { FaFacebook, FaPinterest, FaApple } from 'react-icons/fa6';
-import { Link, redirect } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { useContext } from 'react';
 import { AuthContext } from '../../providers/AuthProvider/AuthProvider';
 
@@ -13,11 +13,15 @@ const Login = () => {
 		successNotification,
 		errorNotification,
 	} = useContext(AuthContext);
+	const navigate = useNavigate();
+
+	// Get location
+	const location = useLocation();
+	const from = location.state?.from?.pathname || '/';
 
 	// Handle user log in
 	const handleLogin = (e) => {
 		e.preventDefault();
-		setLoading(true);
 		const form = e.target;
 		const email = form.email.value;
 		const password = form.password.value;
@@ -27,6 +31,7 @@ const Login = () => {
 				successNotification('Logged in successfully!');
 				setLoggedIn(true);
 				setUser(data.user);
+				navigate(from);
 			})
 			.catch((err) => {
 				errorNotification(err.code);

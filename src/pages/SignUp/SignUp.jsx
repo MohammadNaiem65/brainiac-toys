@@ -9,7 +9,6 @@ const SignUp = () => {
 		createUserWithEmail,
 		setUser,
 		updateUserData,
-		loggedIn,
 		setLoading,
 		successNotification,
 		errorNotification,
@@ -31,9 +30,7 @@ const SignUp = () => {
 			createUserWithEmail(email, password)
 				.then((userData) => {
 					if (userData.user.email) {
-						if (loggedIn) {
 							setUser(userData.user);
-						}
 						// Update user data after sign up
 						updateUserData(name, photo).then(() => {
 							setLoading(false);

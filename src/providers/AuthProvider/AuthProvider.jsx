@@ -9,40 +9,52 @@ import {
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import app from '../../firebase/firebase.config';
-import { createContext, useState } from 'react';
+import { createContext, useEffect, useState } from 'react';
 
 export const AuthContext = createContext({});
 const auth = getAuth(app);
 
 const AuthProvider = ({ children }) => {
-	// * Handle user
+	// * Required variables
 	const [user, setUser] = useState(null);
 	const [loggedIn, setLoggedIn] = useState(false);
-
-	console.log(user);
+	const [loading, setLoading] = useState(false);
 
 	// * Sign Up User
 	const createUserWithEmail = (email, password) => {
+		setLoading(true);
 		return createUserWithEmailAndPassword(auth, email, password);
 	};
 
 	// * Log in user
-	const logInUserWithEmail = (email, password) =>
-		signInWithEmailAndPassword(auth, email, password);
+	const logInUserWithEmail = (email, password) => {
+		setLoading(true);
+		return signInWithEmailAndPassword(auth, email, password);
+	};
 
 	// * Update user data
 	const updateUserData = (name, photo) => {
+		setLoading(true);
 		return updateProfile(auth.currentUser, {
 			displayName: name,
 			photoURL: photo,
 		});
 	};
 
-	onAuthStateChanged(auth, (user) => {
-		if (user && loggedIn) {
-			setUser(user);
-		}
-	});
+	useEffect(() => {
+		setLoading(true);
+		const unsubscribe = onAuthStateChanged(auth, (userData) => {
+			if (loggedIn) {
+				setUser(userData);
+				setLoading(false);
+			} else {
+				setUser(null);
+				setLoading(false);
+			}
+		});
+
+		return () => unsubscribe();
+	}, []);
 
 	// * Notify user
 	const successNotification = (msg) => {
@@ -73,9 +85,6 @@ const AuthProvider = ({ children }) => {
 
 	// * Handle log out
 	const handleLogOut = () => signOut(auth);
-
-	// * Handle loading
-	const [loading, setLoading] = useState(false);
 
 	// * Module scaffolding
 	const authInfo = {
