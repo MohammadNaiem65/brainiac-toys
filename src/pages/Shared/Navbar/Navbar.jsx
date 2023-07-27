@@ -46,9 +46,15 @@ const Navbar = () => {
 			<div className='flex items-center gap-x-5'>
 				{loggedIn ? (
 					<>
-						<p className='cursor-pointer' title='Naiem'>
-							{user.displayName}
-						</p>
+						<div
+							className='rounded-full ring ring-primary ring-offset-base-100 ring-offset-2 cursor-pointer'
+							title={user.displayName}>
+							<img
+								className='w-16 aspect-square object-cover rounded-full'
+								src={user.photoURL}
+								alt={`${user.displayName}'s image`}
+							/>
+						</div>
 						<button
 							onClick={handleLogOutUser}
 							className='btn btn-primary'>

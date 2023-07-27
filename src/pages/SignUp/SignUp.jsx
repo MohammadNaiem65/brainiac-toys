@@ -2,7 +2,7 @@ import { FcGoogle } from 'react-icons/fc';
 import { FaFacebook, FaPinterest, FaApple } from 'react-icons/fa6';
 import { useContext } from 'react';
 import { AuthContext } from '../../providers/AuthProvider/AuthProvider';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 const SignUp = () => {
 	const {
@@ -13,6 +13,7 @@ const SignUp = () => {
 		successNotification,
 		errorNotification,
 	} = useContext(AuthContext);
+	const navigate = useNavigate();
 
 	// ! Handle sign up process
 	const handleSignUp = (e) => {
@@ -33,10 +34,15 @@ const SignUp = () => {
 					updateUserData(name, photo).then(() => {
 						setLoading(false);
 						successNotification('User Created Successfully');
+						// Redirect to login page after successful sign up
+						navigate('/login', { replace: true }); 
 					});
 					setLoggedIn(false);
 				})
-				.catch((err) => errorNotification(err.code));
+				.catch((err) => {
+					setLoading(false);
+					errorNotification(err.code);
+				});
 		} else {
 			errorNotification('Password did not match!');
 		}
