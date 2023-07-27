@@ -7,7 +7,7 @@ import { Link } from 'react-router-dom';
 const SignUp = () => {
 	const {
 		createUserWithEmail,
-		setUser,
+		setLoggedIn,
 		updateUserData,
 		setLoading,
 		successNotification,
@@ -28,15 +28,13 @@ const SignUp = () => {
 		if (password === confirmPassword) {
 			// Create user
 			createUserWithEmail(email, password)
-				.then((userData) => {
-					if (userData.user.email) {
-							setUser(userData.user);
-						// Update user data after sign up
-						updateUserData(name, photo).then(() => {
-							setLoading(false);
-						});
+				.then(() => {
+					// Update user data after sign up
+					updateUserData(name, photo).then(() => {
+						setLoading(false);
 						successNotification('User Created Successfully');
-					}
+					});
+					setLoggedIn(false);
 				})
 				.catch((err) => errorNotification(err.code));
 		} else {

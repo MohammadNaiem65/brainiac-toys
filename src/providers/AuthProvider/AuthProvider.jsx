@@ -22,35 +22,34 @@ const AuthProvider = ({ children }) => {
 
 	// * Sign Up User
 	const createUserWithEmail = (email, password) => {
-		setLoading(true);
 		return createUserWithEmailAndPassword(auth, email, password);
 	};
 
 	// * Log in user
 	const logInUserWithEmail = (email, password) => {
-		setLoading(true);
 		return signInWithEmailAndPassword(auth, email, password);
 	};
 
 	// * Update user data
 	const updateUserData = (name, photo) => {
-		setLoading(true);
 		return updateProfile(auth.currentUser, {
 			displayName: name,
 			photoURL: photo,
 		});
 	};
 
+	// * Check/Update login status
 	useEffect(() => {
 		setLoading(true);
 		const unsubscribe = onAuthStateChanged(auth, (userData) => {
-			if (loggedIn) {
+			if (userData) {
 				setUser(userData);
-				setLoading(false);
+				setLoggedIn(true);
 			} else {
 				setUser(null);
-				setLoading(false);
+				setLoggedIn(false);
 			}
+			setLoading(false);
 		});
 
 		return () => unsubscribe();
@@ -60,7 +59,7 @@ const AuthProvider = ({ children }) => {
 	const successNotification = (msg) => {
 		toast(msg, {
 			position: 'top-center',
-			autoClose: 5000,
+			autoClose: 2500,
 			hideProgressBar: false,
 			closeOnClick: true,
 			pauseOnHover: true,
@@ -73,7 +72,7 @@ const AuthProvider = ({ children }) => {
 	const errorNotification = (msg) => {
 		toast.error(msg, {
 			position: 'top-center',
-			autoClose: 5000,
+			autoClose: 2500,
 			hideProgressBar: false,
 			closeOnClick: true,
 			pauseOnHover: true,

@@ -9,6 +9,7 @@ const Navbar = () => {
 	const {
 		user,
 		setUser,
+		loggedIn,
 		setLoading,
 		handleLogOut,
 		successNotification,
@@ -43,7 +44,7 @@ const Navbar = () => {
 				<ActiveLink to='/blogs'>Blogs</ActiveLink>
 			</div>
 			<div className='flex items-center gap-x-5'>
-				{user ? (
+				{loggedIn ? (
 					<>
 						<p className='cursor-pointer' title='Naiem'>
 							{user.displayName}

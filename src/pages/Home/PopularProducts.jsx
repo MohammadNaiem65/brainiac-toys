@@ -5,14 +5,9 @@ const PopularProducts = () => {
 	const [products, setProducts] = useState([]);
 
 	useEffect(() => {
-		fetch('products.json')
+		fetch('https://brainiac-toys-server.vercel.app/top-toys')
 			.then((res) => res.json())
-			.then((data) => {
-				const sortedProducts = data
-					.sort((a, b) => b.rating - a.rating)
-					.slice(0, 8);
-				setProducts(sortedProducts);
-			});
+			.then((data) => setProducts(data));
 	}, []);
 	return (
 		<div className='container'>

@@ -14,7 +14,7 @@ const AllToys = () => {
 			</div>
 			{/* Toy Body */}
 			<div className=''>
-				{toys?.map((toy) => (
+				{toys.map((toy) => (
 					<Toy key={toy._id} toy={toy} />
 				))}
 			</div>

@@ -22,6 +22,7 @@ const Login = () => {
 	// Handle user log in
 	const handleLogin = (e) => {
 		e.preventDefault();
+		setLoading(true);
 		const form = e.target;
 		const email = form.email.value;
 		const password = form.password.value;
@@ -29,11 +30,12 @@ const Login = () => {
 			.then((data) => {
 				setLoading(false);
 				successNotification('Logged in successfully!');
-				setLoggedIn(true);
 				setUser(data.user);
+				setLoggedIn(true);
 				navigate(from);
 			})
 			.catch((err) => {
+				setLoading(false);
 				errorNotification(err.code);
 			});
 	};
