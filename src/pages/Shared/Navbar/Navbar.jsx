@@ -23,6 +23,7 @@ const Navbar = () => {
 				setUser(null);
 				setLoading(false);
 				successNotification('You have been logged out successfully');
+				localStorage.removeItem('access-token');
 			})
 			.catch(() => {
 				setLoading(false);

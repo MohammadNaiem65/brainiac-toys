@@ -32,12 +32,24 @@ const Login = () => {
 				successNotification('Logged in successfully!');
 				setUser(data.user);
 				setLoggedIn(true);
-				navigate(from);
+				fetch('http://localhost:5000/jwt', {
+					method: 'POST',
+					headers: {
+						'content-type': 'application/json',
+					},
+					body: JSON.stringify({ email }),
+				})
+					.then((res) => res.json())
+					.then((data) => {
+						localStorage.setItem('access-token', data.token);
+						navigate(from);
+					});
 			})
 			.catch((err) => {
 				setLoading(false);
 				errorNotification(err.code);
 			});
+		form.reset();
 	};
 	return (
 		<div className='w-1/3 mx-auto my-20 px-10 py-5 bg-primary/60 font-bubblegum rounded'>
