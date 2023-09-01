@@ -32,12 +32,12 @@ const SignUp = () => {
 				.then(() => {
 					// Update user data after sign up
 					updateUserData(name, photo).then(() => {
+						setLoggedIn(false);
 						setLoading(false);
 						successNotification('User Created Successfully');
 						// Redirect to login page after successful sign up
-						navigate('/login', { replace: true }); 
+						navigate('/login', { replace: true });
 					});
-					setLoggedIn(false);
 				})
 				.catch((err) => {
 					setLoading(false);

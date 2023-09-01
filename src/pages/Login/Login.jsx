@@ -19,8 +19,8 @@ const Login = () => {
 	const location = useLocation();
 	const from = location.state?.from?.pathname || '/';
 
-	// Handle user log in
-	const handleLogin = (e) => {
+	// Handle user login with email and password
+	const handleLoginWithEmail = (e) => {
 		e.preventDefault();
 		setLoading(true);
 		const form = e.target;
@@ -28,11 +28,11 @@ const Login = () => {
 		const password = form.password.value;
 		logInUserWithEmail(email, password)
 			.then((data) => {
-				setLoading(false);
 				successNotification('Logged in successfully!');
 				setUser(data.user);
 				setLoggedIn(true);
-				fetch('http://localhost:5000/jwt', {
+				setLoading(false);
+				fetch('https://brainiac-toys-server.vercel.app/jwt', {
 					method: 'POST',
 					headers: {
 						'content-type': 'application/json',
@@ -51,10 +51,16 @@ const Login = () => {
 			});
 		form.reset();
 	};
+
+	const handleLoginWithGoogle = () => {
+		console.log('clicked');
+	};
 	return (
 		<div className='w-1/3 mx-auto my-20 px-10 py-5 bg-primary/60 font-bubblegum rounded'>
 			<h2 className='text-4xl text-center'>Login</h2>
-			<form className='w-fit mx-auto px-5' onSubmit={handleLogin}>
+			<form
+				className='w-fit mx-auto px-5'
+				onSubmit={handleLoginWithEmail}>
 				{/* Email */}
 				<>
 					<label
@@ -104,7 +110,10 @@ const Login = () => {
 				<div className='w-full'>
 					<p className='text-xl text-center mt-10 mb-2'>Or</p>
 					<div className='text-4xl flex justify-center gap-x-5'>
-						<FcGoogle className='cursor-pointer' />
+						<FcGoogle
+							className='cursor-pointer'
+							onClick={handleLoginWithGoogle}
+						/>
 						<FaFacebook className='cursor-pointer text-blue-600' />
 						<FaPinterest className='cursor-pointer text-red-600' />
 						<FaApple className='cursor-pointer' />

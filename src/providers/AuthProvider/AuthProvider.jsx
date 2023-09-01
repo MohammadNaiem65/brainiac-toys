@@ -41,15 +41,17 @@ const AuthProvider = ({ children }) => {
 	// * Check/Update login status
 	useEffect(() => {
 		setLoading(true);
+		setLoggedIn(false);
 		const unsubscribe = onAuthStateChanged(auth, (userData) => {
 			if (userData) {
 				setUser(userData);
 				setLoggedIn(true);
+				setLoading(false);
 			} else {
 				setUser(null);
 				setLoggedIn(false);
+				setLoading(false);
 			}
-			setLoading(false);
 		});
 
 		return () => unsubscribe();
